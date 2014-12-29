@@ -55,9 +55,9 @@ public class GetApps extends AsyncTask<Void, Integer, List<MyApplicationInfo>> {
 		Intent launchIntent = new Intent(Intent.ACTION_MAIN);
 		launchIntent.addCategory(Intent.CATEGORY_LAUNCHER);
 		
-		List<ResolveInfo> list = 
-			pm.queryIntentActivities(launchIntent, 0);
-		
+		List<ApplicationInfo> list = 
+				pm.getInstalledApplications(0);
+
 		List<MyApplicationInfo> myList = new ArrayList<MyApplicationInfo>();
 		
 		MyCache cache = new MyCache(MyCache.genFilename(context, cachePath));
@@ -65,9 +65,9 @@ public class GetApps extends AsyncTask<Void, Integer, List<MyApplicationInfo>> {
 		for (int i = 0 ; i < list.size() ; i++) {
 			publishProgress(i, list.size());
 			MyApplicationInfo myAppInfo;
-			myAppInfo = new MyApplicationInfo(
-					cache, pm, list.get(i));
-			myList.add(myAppInfo);
+			myAppInfo = new MyApplicationInfo(cache, pm, list.get(i));
+			if (!myList.contains(myAppInfo))
+				myList.add(myAppInfo);
 		}
 		cache.commit();
 		
@@ -98,22 +98,25 @@ public class GetApps extends AsyncTask<Void, Integer, List<MyApplicationInfo>> {
 		
 		ArrayAdapter<MyApplicationInfo> appInfoAdapter = 
 			new ArrayAdapter<MyApplicationInfo>(context, 
-					R.layout.oneline, 
+					R.layout.twoline, 
 					appInfo) {
 
 			public View getView(int position, View convertView, ViewGroup parent) {
 				View v;				
 				
 				if (convertView == null) {
-	                v = View.inflate(context, R.layout.oneline, null);
+	                v = View.inflate(context, R.layout.twoline, null);
 	            }
 				else {
 					v = convertView;
 				}
 
 				final MyApplicationInfo a = appInfo.get(position); 
+				TextView tv = (TextView)v.findViewById(R.id.text1);
+				tv.setText(a.getLabel());
+				tv = (TextView)v.findViewById(R.id.text2);
+				tv.setText(a.getPackageName());
 				CheckBox cb = (CheckBox)v.findViewById(R.id.checkbox);
-				cb.setText(a.getLabel());
 				cb.setOnCheckedChangeListener(null);
 				cb.setChecked(
 						null != (pref.getString(Apps.PREF_APPS+a.getPackageName(), null)));

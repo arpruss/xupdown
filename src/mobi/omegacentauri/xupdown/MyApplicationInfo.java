@@ -6,6 +6,7 @@ import java.util.Locale;
 import android.bluetooth.BluetoothAdapter;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.wifi.WifiManager;
@@ -35,9 +36,9 @@ public class MyApplicationInfo {
 		return packageName;
 	}
 	
-	public MyApplicationInfo(MyCache cache, PackageManager pm, ResolveInfo r) {
-		packageName = r.activityInfo.packageName;
-		uid = r.activityInfo.applicationInfo.uid;
+	public MyApplicationInfo(MyCache cache, PackageManager pm, ApplicationInfo applicationInfo) {
+		packageName = applicationInfo.packageName;
+		uid = applicationInfo.uid;
 		
 		try {
 			versionCode = (pm.getPackageInfo(packageName, 0)).versionCode;
@@ -54,7 +55,7 @@ public class MyApplicationInfo {
 			}
 		}
 		
-		CharSequence l = r.activityInfo.loadLabel(pm); 
+		CharSequence l = applicationInfo.loadLabel(pm); 
 		if (l == null) {
 			label = packageName;
 		}

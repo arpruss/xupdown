@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+     <string-array name="types">
+        <item>Sine</item> 
+        <item>Square</item>
+		<item>Triangle</item>
+		<item>Arbitrary</item>
+     </string-array>
+</resources>
