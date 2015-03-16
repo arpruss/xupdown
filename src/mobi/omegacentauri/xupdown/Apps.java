@@ -10,6 +10,7 @@ import de.robv.android.xposed.XSharedPreferences;
 import de.robv.android.xposed.XposedBridge;
 
 import mobi.omegacentauri.xupdown.R;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.AlertDialog;
@@ -27,6 +28,7 @@ import android.graphics.Bitmap.CompressFormat;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -49,6 +51,9 @@ public class Apps extends Activity {
 	SharedPreferences prefs;
 	final static String PREF_APPS = "A.";
 	static final String PREFS = "preferences";
+//	public static final String PREF_ENTER = "enter";
+	public static final String PREF_LEFT_RIGHT = "leftRight";
+	
 	
 	public static void saveIcon(Context c, String packageName) {
 		deleteIcon(c, packageName);
@@ -61,12 +66,10 @@ public class Apps extends Activity {
 //			Drawable icon = pm.getPackageInfo(packageName, 0).applicationInfo.loadIcon(c.getPackageManager());
 			if (icon instanceof BitmapDrawable) {
 				Bitmap bmp = ((BitmapDrawable)icon).getBitmap();
-				Log.v("FastLaunch", "icon "+bmp.getWidth()+"x"+bmp.getHeight());
 				File iconFile = getIconFile(c, packageName);
 				FileOutputStream out = new FileOutputStream(iconFile);
 				bmp.compress(CompressFormat.PNG, 100, out);
 				out.close();
-				Log.v("FastLaunch", "saved icon");
 			}
 		} catch (Exception e) {
 			deleteIcon(c, packageName);
@@ -138,8 +141,38 @@ public class Apps extends Activity {
         res = getResources();        
 
         appsList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-        
+	}
+	
+	@SuppressLint("NewApi")
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		Intent i;
+		
+		switch(item.getItemId()) {
+//		case R.id.enter:
+//			boolean opt = ! prefs.getBoolean(PREF_ENTER, false);
+//			prefs.edit().putBoolean(PREF_ENTER, opt).commit();
+//			invalidateOptionsMenu();
+//			return true;
+		case R.id.leftright:
+			boolean opt = ! prefs.getBoolean(PREF_LEFT_RIGHT, false);
+			prefs.edit().putBoolean(PREF_LEFT_RIGHT, opt).commit();
+			invalidateOptionsMenu();
+			return true;
+		default:
+			return false;
+		}
+	}
 
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.main, menu);
+		
+//		boolean enter = prefs.getBoolean(PREF_ENTER, false);
+//		menu.findItem(R.id.enter).setTitle(enter ? "Map bt shutter to pgdn [on]" : "Map bt shutter to pgdn [off]");
+		menu.findItem(R.id.leftright).setTitle(prefs.getBoolean(PREF_LEFT_RIGHT, false) 
+				? "Vol to lt/rt if kb shown [on]" : "Vol to lt/rt if kb shown [off]");
+		return true;
 	}
 	
 //    @Override

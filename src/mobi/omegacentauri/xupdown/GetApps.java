@@ -148,7 +148,8 @@ public class GetApps extends AsyncTask<Void, Integer, List<MyApplicationInfo>> {
 		if (map.size()>0) {
 			SharedPreferences.Editor ed = pref.edit();
 			for (String s: map.keySet()) {
-				ed.remove(s);
+				if (s.startsWith(Apps.PREF_APPS))  
+					ed.remove(s);
 			}
 			ed.commit();
 		}
