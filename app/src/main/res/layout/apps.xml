@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <CheckBox
+        android:id="@+id/leftright"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Volume does left/right in text editor"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:singleLine="false"
+        android:text="- To get left/right functionality with volume up/down: check the above checkbox and activate xupdown for all input methods in your xposed manager.\n- To get page up/page down functionality in an app: activate xupdown in that app in the xposed manager."/>
+</LinearLayout>

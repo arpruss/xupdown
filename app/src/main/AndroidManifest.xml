@@ -1,0 +1,27 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="mobi.omegacentauri.xupdown">
+
+    <application android:label="XUpDown" android:icon="@drawable/icon">
+        <meta-data
+            android:name="xposedmodule"
+            android:value="true" />
+        <meta-data
+            android:name="xposeddescription"
+            android:value="Use volume up/down as page up/down" />
+        <meta-data
+            android:name="xposedminversion"
+            android:value="93" />
+
+        <activity android:name=".Main"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:label="XUpDown"
+            android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+    </application>
+
+</manifest>
