@@ -10,7 +10,10 @@
             android:value="Use volume up/down as page up/down" />
         <meta-data
             android:name="xposedminversion"
-            android:value="93" />
+            android:value="90" />
+        <meta-data
+            android:name="xposedsharedprefs"
+            android:value="true" />
 
         <activity android:name=".Main"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"

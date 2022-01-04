@@ -105,7 +105,6 @@
     </content>
     <orderEntry type="jdk" jdkName="Android API 23 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Gradle: com.crossbowffs.remotepreferences:remotepreferences-0.8" level="project" />
     <orderEntry type="library" name="Gradle: de.robv.android.xposed:api:82@jar" level="project" />
     <orderEntry type="library" name="Gradle: android-android-23" level="project" />
   </component>
